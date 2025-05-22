@@ -11,7 +11,7 @@ Breve descrição do projeto: Um sistema de compras online desenvolvido com Reac
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/GabrielViniciusss/Rocketlab-Frontend.git](https://github.com/GabrielViniciusss/Rocketlab-Frontend.git)
+    git clone https://github.com/GabrielViniciusss/Rocketlab-Frontend.git
     cd Rocketlab-Frontend
     ```
 2.  **Instale as dependências:**
