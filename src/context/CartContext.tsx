@@ -1,22 +1,24 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+// src/context/CartContext.tsx
+import React, { createContext, useState, useContext, useEffect, ReactNode } from "react";
 import type { Product } from "../types";
-import type { ReactNode } from "react";
 
 export interface CartItem extends Product {
   quantity: number;
 }
 
-interface CartContextType { 
+interface CartContextType {
   cartItems: CartItem[];
   addToCart: (product: Product) => void;
-  removeFromCart: (productId: number) => void;    
-  updateQuantity: (productId: number, quantity: number) => void; 
-  clearCart: () => void;                         
+  removeFromCart: (productId: number) => void;
+  updateQuantity: (productId: number, quantity: number) => void;
+  clearCart: () => void;
   itemCount: number;
   totalPrice: number;
 }
 
-const CartContext = createContext<CartContextType>(null!); 
+const CART_STORAGE_KEY = 'rocketShopCart'; 
+
+const CartContext = createContext<CartContextType>(null!);
 
 export const useCart = () => {
   const context = useContext(CartContext);
@@ -31,27 +33,36 @@ interface CartProviderProps {
 }
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    try {
+      const localData = localStorage.getItem(CART_STORAGE_KEY);
+      return localData ? JSON.parse(localData) : []; 
+    } catch (error) {
+      console.error("Erro ao carregar carrinho do localStorage:", error);
+      return []; 
+    }
+  });
+
   const [itemCount, setItemCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0.0);
 
   useEffect(() => {
-    const newTotalCount = cartItems.reduce(
-      (sum, item) => sum + item.quantity,
-      0
-    );
+    const newTotalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     setItemCount(newTotalCount);
 
-    const newTotalPrice = cartItems.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0
-    );
+    const newTotalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     setTotalPrice(newTotalPrice);
+
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
+    } catch (error) {
+      console.error("Erro ao salvar carrinho no localStorage:", error);
+    }
 
     console.log("Carrinho atualizado (Context):", cartItems);
     console.log("Total de itens (Context):", newTotalCount);
     console.log("Preço total (Context): R$", newTotalPrice.toFixed(2));
-  }, [cartItems]);
+  }, [cartItems]); 
 
   const addToCart = (product: Product) => {
     setCartItems((prevItems) => {
@@ -76,22 +87,27 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setCartItems(prevItems =>
       prevItems.map(item =>
         item.id === productId
-          ? { ...item, quantity: Math.max(0, quantity) } 
+          ? { ...item, quantity: Math.max(0, quantity) }
           : item
-      ).filter(item => item.quantity > 0) 
+      ).filter(item => item.quantity > 0)
     );
   };
 
   const clearCart = () => {
     setCartItems([]);
+    try {
+      localStorage.removeItem(CART_STORAGE_KEY); 
+    } catch (error) {
+      console.error("Erro ao limpar carrinho do localStorage:", error);
+    }
   };
 
   const value = {
     cartItems,
     addToCart,
-    removeFromCart, 
-    updateQuantity, 
-    clearCart,      
+    removeFromCart,
+    updateQuantity,
+    clearCart,
     itemCount,
     totalPrice,
   };

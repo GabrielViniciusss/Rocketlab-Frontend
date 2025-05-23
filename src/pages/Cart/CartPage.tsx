@@ -1,7 +1,8 @@
+// src/pages/Cart/CartPage.tsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../../context/CartContext'; 
-import type { CartItem } from '../../context/CartContext'; 
+import { useCart } from '../../context/CartContext';
+import type { CartItem } from '../../context/CartContext';
 
 const TrashIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -16,25 +17,25 @@ export const CartPage: React.FC = () => {
     totalPrice,
     removeFromCart,
     updateQuantity,
-    clearCart,
+    clearCart
   } = useCart();
 
   const [isPurchaseSuccessful, setIsPurchaseSuccessful] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handlePurchase = () => {
     console.log("Processando compra...", cartItems);
-    clearCart(); 
-    setIsPurchaseSuccessful(true); 
+    clearCart();
+    setIsPurchaseSuccessful(true);
   };
 
   const handleContinueShopping = () => {
-    navigate('/'); 
+    navigate('/');
   };
 
   if (isPurchaseSuccessful) {
     return (
-      <div className="container mx-auto p-6 text-center min-h-[calc(100vh-100px)] flex flex-col justify-center items-center"> 
+      <div className="container mx-auto p-6 text-center min-h-[calc(100vh-100px)] flex flex-col justify-center items-center">
         <svg className="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
@@ -65,7 +66,7 @@ export const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 min-h-[calc(100vh-100px)]"> 
+    <div className="container mx-auto p-4 sm:p-6 min-h-[calc(100vh-100px)]">
       <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-6 sm:mb-8">Seu Carrinho de Compras</h1>
 
       <div className="bg-white shadow-xl rounded-lg p-4 sm:p-6">
@@ -92,7 +93,7 @@ export const CartPage: React.FC = () => {
               <div className="flex items-center justify-center text-sm sm:text-base">
                 <button
                   onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  disabled={item.quantity <= 1} 
+                  disabled={item.quantity <= 1}
                   className="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded-l text-slate-700 disabled:opacity-50"
                   aria-label="Diminuir quantidade"
                 >
@@ -127,12 +128,7 @@ export const CartPage: React.FC = () => {
 
         <div className="mt-6 pt-6 border-t border-slate-200">
           <div className="flex justify-between items-center mb-4">
-            <button
-              onClick={clearCart}
-              className="px-4 py-2 text-sm font-medium text-red-500 hover:text-red-700 hover:bg-red-50 border border-red-300 rounded-md transition-colors"
-            >
-              Limpar Carrinho
-            </button>
+            <div></div>
             <div className="text-right">
               <p className="text-lg sm:text-xl font-semibold text-slate-800">
                 Total Geral: R$ {totalPrice.toFixed(2)}
@@ -142,16 +138,35 @@ export const CartPage: React.FC = () => {
               </p>
             </div>
           </div>
-          <div className="mt-6 flex justify-end">
+
+          <div className="mt-6 flex flex-col sm:flex-row justify-end items-center gap-3">
+            <button
+              onClick={clearCart}
+              className="order-2 sm:order-1 px-6 py-2 text-sm font-medium text-red-500 hover:text-red-700 hover:bg-red-50 border border-red-300 rounded-md transition-colors w-full sm:w-auto"
+            >
+              Limpar Carrinho
+            </button>
             <button
               onClick={handlePurchase}
-              className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 text-lg"
+              className="order-1 sm:order-2 px-6 py-3 text-base font-semibold text-white bg-green-500 hover:bg-green-600 rounded-md transition-colors w-full sm:w-auto"
             >
-              Comprar
+              Finalizar Compra
             </button>
           </div>
+
+          <div className="mt-6 text-center">
+            <Link
+              to="/"
+              className="text-indigo-600 hover:text-indigo-700 font-semibold hover:underline text-sm sm:text-base"
+            >
+              &larr; Continuar Comprando
+            </Link>
+          </div>
+
         </div>
       </div>
     </div>
   );
 };
+
+export default CartPage;
