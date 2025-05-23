@@ -1,75 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; /* Tailwind pode já fornecer um bom padrão via Preflight */
-  line-height: 1.5; /* Tailwind também ajusta isso */
-  font-weight: 400; /* Tailwind também ajusta isso */
-
-  /* color-scheme e as cores padrão podem ser mantidas se você quiser esse
-     comportamento de tema claro/escuro padrão do navegador, mas o Tailwind
-     também oferece formas de gerenciar temas claro/escuro. */
-  color-scheme: light dark;
-  /* color: rgba(255, 255, 255, 0.87); */ /* Comentado - Deixe o Tailwind ou o body do componente controlar */
-  /* background-color: #242424; */ /* Comentado - Deixe o Tailwind ou o body do componente controlar */
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  margin: 0;
-  /* display: flex; <-- REMOVIDO */
-  /* place-items: center; <-- REMOVIDO */
-  min-width: 320px;
-  min-height: 100vh;
-  /* A cor de fundo do body pode ser definida pelo bg-slate-50 no seu Home.tsx
-     ou aqui se você quiser um padrão global diferente do :root */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 body::-webkit-scrollbar {
   display: none;
 }
 
-/* Estilos para <a>, <h1>, <button> podem ser simplificados ou removidos
-   se você for estilizá-los primariamente com classes Tailwind nos seus componentes.
-   O Preflight do Tailwind já fará um reset neles. */
-
 a {
-  font-weight: 500;
-  /* color: #646cff; */ /* Deixe o Tailwind ou classes específicas controlarem */
-  text-decoration: inherit; /* Preflight geralmente remove sublinhados, você adiciona com 'underline' do Tailwind onde quiser */
 }
-/* a:hover { color: #535bf2; } */
 
 h1 {
-  /* font-size: 3.2em; */ /* Use classes como text-4xl, text-5xl do Tailwind */
-  /* line-height: 1.1; */ /* Tailwind ajusta isso */
 }
 
 button {
-  /* Muitos desses estilos são cobertos/resetados pelo Tailwind.
-     Você pode querer manter border-radius se for um padrão global não coberto.
-     Estilize botões específicos com classes Tailwind. */
-  /* border-radius: 8px; */
-  /* border: 1px solid transparent; */
-  /* padding: 0.6em 1.2em; */
-  /* font-size: 1em; */
-  /* font-weight: 500; */
-  /* font-family: inherit; */
-  /* background-color: #1a1a1a; */
-  /* cursor: pointer; */
-  /* transition: border-color 0.25s; */
 }
-/* button:hover { border-color: #646cff; } */
-/* button:focus, button:focus-visible { outline: 4px auto -webkit-focus-ring-color; } */
 
 @media (prefers-color-scheme: light) {
   :root {
-    /* color: #213547; */
-    /* background-color: #ffffff; */
   }
-  /* a:hover { color: #747bff; } */
-  /* button { background-color: #f9f9f9; } */
 }
