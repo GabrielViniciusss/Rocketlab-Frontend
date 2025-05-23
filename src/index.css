@@ -4,7 +4,10 @@
 }
 
 body {
+ 
 }
+
+/* ... restante dos seus estilos ... */
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

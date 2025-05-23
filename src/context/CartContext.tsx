@@ -1,4 +1,3 @@
-// src/context/CartContext.tsx
 import React, { createContext, useState, useContext, useEffect } from "react";
 import type { Product } from "../types";
 import type { ReactNode } from "react";
@@ -7,14 +6,17 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
-interface CartContext {
+interface CartContextType { 
   cartItems: CartItem[];
   addToCart: (product: Product) => void;
+  removeFromCart: (productId: number) => void;    
+  updateQuantity: (productId: number, quantity: number) => void; 
+  clearCart: () => void;                         
   itemCount: number;
   totalPrice: number;
 }
 
-const CartContext = createContext<CartContext>(null!);
+const CartContext = createContext<CartContextType>(null!); 
 
 export const useCart = () => {
   const context = useContext(CartContext);
@@ -30,7 +32,6 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
   const [itemCount, setItemCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0.0);
 
@@ -47,15 +48,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     );
     setTotalPrice(newTotalPrice);
 
-    console.log("Carrinho atualizado:", cartItems);
-    console.log("Total de itens:", newTotalCount);
-    console.log("Preço total:", newTotalPrice.toFixed(2));
+    console.log("Carrinho atualizado (Context):", cartItems);
+    console.log("Total de itens (Context):", newTotalCount);
+    console.log("Preço total (Context): R$", newTotalPrice.toFixed(2));
   }, [cartItems]);
 
   const addToCart = (product: Product) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
-
       if (existingItem) {
         return prevItems.map((item) =>
           item.id === product.id
@@ -68,9 +68,30 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
   };
 
+  const removeFromCart = (productId: number) => {
+    setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+  };
+
+  const updateQuantity = (productId: number, quantity: number) => {
+    setCartItems(prevItems =>
+      prevItems.map(item =>
+        item.id === productId
+          ? { ...item, quantity: Math.max(0, quantity) } 
+          : item
+      ).filter(item => item.quantity > 0) 
+    );
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const value = {
     cartItems,
     addToCart,
+    removeFromCart, 
+    updateQuantity, 
+    clearCart,      
     itemCount,
     totalPrice,
   };
