@@ -108,7 +108,7 @@ export const Home = () => {
 
       {isCartModalOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300"
+          className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300"
           onClick={closeCartModal}
         >
           <div
