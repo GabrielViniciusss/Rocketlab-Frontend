@@ -39,5 +39,3 @@ Breve descrição do projeto: Um sistema de compras online desenvolvido com Reac
 - `src/data/products.json` - Dados dos produtos
 
 ---
-
-> Este projeto foi criado com [Vite](https://vitejs.dev/) e utiliza [React](https://react.dev/) e [TypeScript](https://www.typescriptlang.org/).
