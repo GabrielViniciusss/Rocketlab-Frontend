@@ -4,20 +4,20 @@ import productsData from "../../data/products.json";
 import type { Product } from "../../types";
 import { useCart } from "../../context/CartContext";
 
-import { Navbar } from "../../components/Navbar/Navbar"; 
-import CartIcon from "../../components/Icons/CartIcon"; 
-import CartResume from "../../components/Cart/CartResume"; 
+import { Navbar } from "../../components/Navbar/Navbar";
+import CartIcon from "../../components/Icons/CartIcon"; // Mantido caso você queira o ícone flutuante de volta ou para outro uso
+import CartResume from "../../components/Cart/CartResume";
 
 const products: Product[] = productsData as Product[];
 
 export const ProductDetail: React.FC = () => {
-  const { addToCart, itemCount } = useCart(); 
+  const { addToCart, itemCount } = useCart(); // itemCount é usado no ícone flutuante, se ele voltar a ser usado
   const params = useParams();
   const productId = params.productId;
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isCartModalOpen, setIsCartModalOpen] = useState(false); 
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
   const handleAddToCartFromDetail = (productToAdd: Product) => {
     addToCart(productToAdd);
@@ -66,59 +66,59 @@ export const ProductDetail: React.FC = () => {
             &larr; Voltar para a página inicial
           </Link>
         </div>
-        <Link
-            to="/Cart"
-            className="fixed bottom-6 right-10 sm:bottom-8 sm:right-12 bg-indigo-600 hover:bg-indigo-700 text-white p-3 sm:p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 z-40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
-            aria-label="Ver carrinho de compras"
-          >
-            <CartIcon className="w-16 h-16" />
-            {itemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transform translate-x-1/4 -translate-y-1/4">
-                {itemCount}
-              </span>
-            )}
-          </Link>
+        <Link /* Ícone flutuante original, mantido por enquanto conforme sua última mensagem */
+          to="/Cart"
+          className="fixed bottom-6 right-10 sm:bottom-8 sm:right-12 bg-indigo-600 hover:bg-indigo-700 text-white p-3 sm:p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 z-40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
+          aria-label="Ver carrinho de compras"
+        >
+          <CartIcon className="w-16 h-16" />
+          {itemCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transform translate-x-1/4 -translate-y-1/4">
+              {itemCount}
+            </span>
+          )}
+        </Link>
 
-          {isCartModalOpen && (
+        {isCartModalOpen && (
+          <div
+            className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300"
+            onClick={closeCartModal}
+          >
             <div
-              className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300"
-              onClick={closeCartModal}
+              className="bg-white p-6 rounded-lg shadow-2xl w-full max-w-md sm:max-w-lg mx-4"
+              onClick={(e) => e.stopPropagation()}
             >
-              <div
-                className="bg-white p-6 rounded-lg shadow-2xl w-full max-w-md sm:max-w-lg mx-4"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-2xl font-semibold text-slate-800">
-                    Seu Carrinho
-                  </h2>
-                  <button
-                    onClick={closeCartModal}
-                    className="text-slate-500 hover:text-slate-700 text-2xl"
-                    aria-label="Fechar modal do carrinho"
-                  >
-                    &times;
-                  </button>
-                </div>
-                <CartResume /> 
-                <div className="mt-6 flex justify-end gap-3">
-                  <button
-                    onClick={closeCartModal}
-                    className="px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors"
-                  >
-                    Continuar Comprando
-                  </button>
-                  <Link
-                    to="/Cart"
-                    className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
-                    onClick={closeCartModal}
-                  >
-                    Ver Carrinho Completo
-                  </Link>
-                </div>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-semibold text-slate-800">
+                  Seu Carrinho
+                </h2>
+                <button
+                  onClick={closeCartModal}
+                  className="text-slate-500 hover:text-slate-700 text-2xl"
+                  aria-label="Fechar modal do carrinho"
+                >
+                  &times;
+                </button>
+              </div>
+              <CartResume />
+              <div className="mt-6 flex justify-end gap-3">
+                <button
+                  onClick={closeCartModal}
+                  className="px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors"
+                >
+                  Continuar Comprando
+                </button>
+                <Link
+                  to="/Cart"
+                  className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
+                  onClick={closeCartModal}
+                >
+                  Ver Carrinho Completo
+                </Link>
               </div>
             </div>
-          )}
+          </div>
+        )}
       </div>
     );
   }
@@ -187,12 +187,12 @@ export const ProductDetail: React.FC = () => {
         </div>
       </div>
 
-      <Link
+      <Link /* Ícone flutuante original, mantido por enquanto conforme sua última mensagem */
         to="/Cart"
         className="fixed bottom-6 right-10 sm:bottom-8 sm:right-12 bg-indigo-600 hover:bg-indigo-700 text-white p-3 sm:p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 z-40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
         aria-label="Ver carrinho de compras"
       >
-        <CartIcon className="w-16 h-16" /> 
+        <CartIcon className="w-16 h-16" />
         {itemCount > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transform translate-x-1/4 -translate-y-1/4">
             {itemCount}
@@ -202,12 +202,12 @@ export const ProductDetail: React.FC = () => {
 
       {isCartModalOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300"
-          onClick={closeCartModal} 
+          className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300"
+          onClick={closeCartModal}
         >
           <div
             className="bg-white p-6 rounded-lg shadow-2xl w-full max-w-md sm:max-w-lg mx-4"
-            onClick={(e) => e.stopPropagation()} 
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold text-slate-800">
@@ -221,7 +221,7 @@ export const ProductDetail: React.FC = () => {
                 &times;
               </button>
             </div>
-            <CartResume /> 
+            <CartResume />
             <div className="mt-6 flex justify-end gap-3">
               <button
                 onClick={closeCartModal}
@@ -232,7 +232,7 @@ export const ProductDetail: React.FC = () => {
               <Link
                 to="/Cart"
                 className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
-                onClick={closeCartModal} 
+                onClick={closeCartModal}
               >
                 Ver Carrinho Completo
               </Link>
