@@ -102,12 +102,12 @@ export const CartPage: React.FC = () => {
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
-                      className="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded-l text-slate-700 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="px-3 py-1 bg-slate-100 hover:bg-slate-200 rounded-l text-indigo-600 font-bold disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
                     >-</button>
-                    <span className="px-3 py-1 border-t border-b border-slate-200 text-slate-700 min-w-[40px] text-center">{item.quantity}</span>
+                    <span className="px-3 py-1 border-t border-b border-slate-200 text-slate-800 font-semibold min-w-[40px] text-center tabular-nums">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded-r text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="px-3 py-1 bg-slate-100 hover:bg-slate-200 rounded-r text-indigo-600 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
                       aria-label="Aumentar quantidade"
                     >+</button>
                   </div>
