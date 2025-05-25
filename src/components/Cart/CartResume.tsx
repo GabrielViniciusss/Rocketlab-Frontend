@@ -1,7 +1,7 @@
 import React from "react";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 
-const CartComponent: React.FC = () => {
+const CartResume: React.FC = () => {
   const { cartItems, itemCount, totalPrice } = useCart();
 
   if (itemCount === 0) {
@@ -56,4 +56,4 @@ const CartComponent: React.FC = () => {
   );
 };
 
-export default CartComponent;
+export default CartResume;

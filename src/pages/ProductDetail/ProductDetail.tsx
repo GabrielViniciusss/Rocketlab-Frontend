@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import productsData from "../../data/products.json";
 import type { Product } from "../../types";
 import { useCart } from "../../context/CartContext";
-import CartComponent from "../../components/CartComponent";
+import CartComponent from "../../components/Cart/CartResume";
 
 const products: Product[] = productsData as Product[];
 

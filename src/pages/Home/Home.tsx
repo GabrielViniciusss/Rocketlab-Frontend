@@ -1,28 +1,14 @@
+// src/pages/Home/Home.tsx
 import React, { useState } from "react";
 import productsData from "../../data/products.json";
 import type { Product } from "../../types/index.ts";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import { useCart } from "../../context/CartContext";
-import CartComponent from "../../components/CartComponent.tsx";
+import CartResume from "../../components/Cart/CartResume.tsx"; 
+import { Navbar } from "../../components/Navbar/Navbar";
+import CartIcon from "../../components/Icons/CartIcon";
 
 const products: Product[] = productsData as Product[];
-
-const CartIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={1.5}
-    stroke="currentColor"
-    className={className}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-    />
-  </svg>
-);
 
 export const Home = () => {
   const { addToCart, itemCount } = useCart();
@@ -41,49 +27,13 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <nav className="bg-indigo-600 py-3 sm:py-4 px-4 sticky top-0 z-30 shadow-md">
-        {" "}
-        <div className="container mx-auto flex items-center justify-between">
-          <Link to="/" className="flex items-baseline">
-            <span
-              className="font-bold text-2xl sm:text-3xl text-white mr-1"
-              style={{
-                fontFamily: "sans-serif",
-                fontWeight: 700,
-                fontStyle: "italic",
-              }}
-            >
-              Rocket
-            </span>
-            <span
-              className="text-base sm:text-lg text-indigo-200"
-              style={{ fontFamily: "sans-serif", fontWeight: 500 }}
-            >
-              Shop
-            </span>
-          </Link>
-
-          <button
-            onClick={openCartModal}
-            className="relative text-white hover:text-indigo-200 transition-colors"
-            aria-label="Abrir resumo do carrinho"
-          >
-            <CartIcon className="w-16 h-16" />
-            {itemCount > 0 && (
-              <span className="absolute -top-2 -right-3 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                {itemCount}
-              </span>
-            )}
-          </button>
-        </div>
-      </nav>
+      <Navbar onCartIconClick={openCartModal} /> 
 
       <div
         className={`container mx-auto p-4 mt-6 ${
           isCartModalOpen ? "blur-sm" : ""
         } transition-all duration-300`}
       >
-        {" "}
         <p className="text-3xl sm:text-4xl font-semibold text-indigo-600 text-center mt-4 mb-14 sm:mt-6 sm:mb-16">
           Os melhores Produtos estão aqui, há 22 anos
         </p>
@@ -91,7 +41,7 @@ export const Home = () => {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white flex flex-col"
+              className="group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white flex flex-col group-hover:brightness-90"
             >
               <Link to={`/produto/${product.id}`} className="block">
                 <div className="p-5 flex flex-col items-center flex-grow">
@@ -124,11 +74,11 @@ export const Home = () => {
       </div>
 
       <Link
-        to="/carrinho"
-        className="fixed bottom-6 right-20 sm:bottom-8 sm:right-20 bg-indigo-600 hover:bg-indigo-700 text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 z-40 flex items-center justify-center"
-        aria-label="Ver carrinho"
+        to="/carrinho" 
+        className="fixed bottom-6 right-10 sm:bottom-8 sm:right-12 bg-indigo-600 hover:bg-indigo-700 text-white p-3 sm:p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 z-40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
+        aria-label="Ver carrinho de compras"
       >
-        <CartIcon className="w-16 h-16 sm:w-16 sm:h-16" />
+        <CartIcon className="w-16 h-16" />
         {itemCount > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transform translate-x-1/4 -translate-y-1/4">
             {itemCount}
@@ -138,7 +88,7 @@ export const Home = () => {
 
       {isCartModalOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300" // z-50 para o modal, maior que navbar e FAB
+          className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300"
           onClick={closeCartModal}
         >
           <div
@@ -157,7 +107,7 @@ export const Home = () => {
                 &times;
               </button>
             </div>
-            <CartComponent />
+            <CartResume /> 
             <div className="mt-6 flex justify-end gap-3">
               <button
                 onClick={closeCartModal}
@@ -168,7 +118,7 @@ export const Home = () => {
               <Link
                 to="/carrinho"
                 className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
-                onClick={closeCartModal}
+                onClick={closeCartModal} 
               >
                 Ver Carrinho Completo
               </Link>
