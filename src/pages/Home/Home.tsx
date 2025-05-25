@@ -74,7 +74,7 @@ export const Home = () => {
       </div>
 
       <Link
-        to="/carrinho" 
+        to="/Cart" 
         className="fixed bottom-6 right-10 sm:bottom-8 sm:right-12 bg-indigo-600 hover:bg-indigo-700 text-white p-3 sm:p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 z-40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
         aria-label="Ver carrinho de compras"
       >
@@ -116,7 +116,7 @@ export const Home = () => {
                 Continuar Comprando
               </button>
               <Link
-                to="/carrinho"
+                to="/Cart"
                 className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
                 onClick={closeCartModal} 
               >

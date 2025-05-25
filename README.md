@@ -28,3 +28,16 @@ Breve descrição do projeto: Um sistema de compras online desenvolvido com Reac
 
 4.  **Abra no navegador:**
     Acesse `http://localhost:5173` (ou a porta que o Vite indicar no terminal) no seu navegador.
+
+## Estrutura do Projeto
+
+- `src/pages/Home/Home.tsx` - Página inicial que contém a lista de produtos
+- `src/pages/ProductDetail/ProductDetail.tsx` - Página de detalhes do produto
+- `src/pages/Cart/CartPage.tsx` - Página final de compra
+- `src/components/` - Componentes compartilhados (navbar, icons)
+- `src/context/CartContext.tsx` - Lógica para salvar o estado do carrinho nas diferentes páginas
+- `src/data/products.json` - Dados dos produtos
+
+---
+
+> Este projeto foi criado com [Vite](https://vitejs.dev/) e utiliza [React](https://react.dev/) e [TypeScript](https://www.typescriptlang.org/).

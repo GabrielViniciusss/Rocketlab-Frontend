@@ -1,5 +1,5 @@
-// src/context/CartContext.tsx
-import React, { createContext, useState, useContext, useEffect, ReactNode } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import type { ReactNode } from "react";
 import type { Product } from "../types";
 
 export interface CartItem extends Product {
