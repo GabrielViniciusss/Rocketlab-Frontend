@@ -68,10 +68,31 @@ export const CartPage: React.FC = () => {
     <div className="h-screen bg-slate-50 flex flex-col overflow-hidden">
       
       <div className="bg-indigo-600 shrink-0 shadow-md">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white py-4 sm:py-6 text-center sm:text-left">
-            Seu Carrinho de Compras
-          </h1>
+        <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
+          <div className="flex items-center">
+            <ShoppingBagIcon className="h-7 w-7 sm:h-8 sm:w-8 text-white mr-2 sm:mr-3" />
+            <h1 className="text-2xl sm:text-3xl font-bold text-white py-4 sm:py-5">
+              Seu Carrinho
+            </h1>
+          </div>
+          <Link to="/" className="flex items-baseline hover:opacity-90 transition-opacity">
+            <span
+              className="font-bold text-2xl sm:text-3xl text-white mr-1"
+              style={{
+                fontFamily: "sans-serif",
+                fontWeight: 700,
+                fontStyle: "italic",
+              }}
+            >
+              Rocket
+            </span>
+            <span
+              className="text-base sm:text-lg text-indigo-200"
+              style={{ fontFamily: "sans-serif", fontWeight: 500 }}
+            >
+              Shop
+            </span>
+          </Link>
         </div>
       </div>
 
